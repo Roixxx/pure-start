@@ -49,6 +49,7 @@
 			2,
 			{
 				"allow": [
+					"log",
 					"info",
 					"warn",
 					"error"

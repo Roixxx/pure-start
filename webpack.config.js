@@ -22,6 +22,7 @@ const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith(".p
 
 const getOptimization = () => {
 	const optimizationConfig = {
+
 		runtimeChunk: "single",
 		splitChunks: {
 			chunks: "all",
@@ -47,29 +48,35 @@ const getOptimization = () => {
 const getFileName = ext => IS_DEV ? `[name].${ext}` : `[name].[contenthash].${ext}`;
 
 module.exports = {
+
 	context: SRC,
 	mode: process.env.NODE_ENV,
 	target: "web",
 	devtool: IS_DEV ? "source-map" : false,
+
 	entry: {
 		main: ["@babel/polyfill", "./index.js"]
 	},
+
 	output: {
 		filename: getFileName("js"),
 		path: DIST,
 		assetModuleFilename: "[path][name].[ext]"
 	},
+
 	devServer: {
 		port: 4200,
 		open: true,
 		watchFiles: `${SRC}/**/*.pug`
 	},
+
 	resolve: {
 		extensions: [".js", ".ts", ".json", ".css", ".scss", ".sass"],
 		alias: {
 			"@": SRC
 		}
 	},
+
 	optimization: getOptimization(),
 	plugins: [
 		new CleanWebpackPlugin(),
@@ -84,46 +91,57 @@ module.exports = {
 			filename: `./${page.replace(/\.pug/, ".html")}`
 		}))
 	],
+
 	module: {
-		rules: [{
-			test: /\.pug$/,
-			use: {
-				loader: "pug-loader",
-				options: {
-					root: SRC
-				}
-			}
-		},
+		rules: [
+
 			{
-			test: /\.js$/,
-			exclude: /node_modules/,
-			use: {
-				loader: "babel-loader",
-				options: {
-					presets: ["@babel/preset-env"]
-				}
-			}
-		}, {
-			test: /\.ts$/,
-			exclude: /node_modules/,
-			use: "ts-loader"
-		}, {
-			test: /\.s(a|c)ss$/,
-			use: [{
-				loader: MiniCssExtractPlugin.loader
-			}, {
-				loader: "css-loader"
-			}, {
-				loader: "postcss-loader",
-				options: {
-					postcssOptions: {
-						plugins: ["autoprefixer", "css-mqpacker"]
+				test: /\.pug$/,
+				use: {
+					loader: "pug-loader",
+					options: {
+						root: SRC
 					}
 				}
-			}, "sass-loader"]
-		}, {
-			test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|otf)$/,
-			type: "asset/resource"
-		}]
+			},
+
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: "babel-loader",
+					options: {
+						presets: ["@babel/preset-env"]
+					}
+				}
+			},
+
+			{
+				test: /\.ts$/,
+				exclude: /node_modules/,
+				use: "ts-loader"
+			},
+
+			{
+				test: /\.s(a|c)ss$/,
+				use: [
+					{loader: MiniCssExtractPlugin.loader},
+					{loader: "css-loader"},
+					{loader: "postcss-loader",
+						options: {
+							postcssOptions: {
+								plugins: ["autoprefixer", "css-mqpacker"]
+							}
+						}
+					},
+					"sass-loader",
+				]
+			},
+
+			{
+				test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|otf)$/,
+				type: "asset/resource"
+			},
+		]
 	}
 };

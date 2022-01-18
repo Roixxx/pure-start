@@ -1,11 +1,13 @@
+include ../mixins/icon
+
 include ../../components/header/header
 include ../../components/footer/footer
-include ../../components/_ui/popup/popup
+
 
 block variables
 
 doctype html
-html(lang='en')
+html(lang='ru')
 	head
 		title #{title}
 		include ../utils/metas
@@ -15,6 +17,9 @@ html(lang='en')
 	body
 		.page-wrapper
 			+header
+
 			block content
+
 			+footer
+
 		+popup('form')
