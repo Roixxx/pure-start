@@ -8,8 +8,8 @@ include ../../components/_ui/radio/radio
 include ../../components/_ui/popup/popup
 
 block variables
-	- const title = 'Document'
-	- const description = 'Page description'
+	- const title = 'Главная'
+	- const description = 'Описание главной страницы'
 
 block content
 	section.container
@@ -62,3 +62,5 @@ block content
 			h4(style="margin-bottom: 10px") 5. Popups
 			div(style="margin-bottom: 25px")
 				+button('primary', 'popup', 'Open popup', '', { popup: 'form' })
+
+		img(src="./assets/img/content/600.jpg" alt="Картинка")
