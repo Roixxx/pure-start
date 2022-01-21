@@ -6,3 +6,6 @@ import '@/components/_ui/popup/popup';
 
 console.log('ban');
 console.log('ban');
+import Icon from './assets/img/content/600.jpg';
+
+console.log(Icon);

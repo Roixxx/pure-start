@@ -6,11 +6,16 @@
 
 const path = require("path");
 const fs = require("fs");
+
+/// Plugins
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+
+///
 
 const IS_DEV = process.env.NODE_ENV === "development";
 
@@ -38,7 +43,24 @@ const getOptimization = () => {
 	};
 
 	if (!IS_DEV) {
-		optimizationConfig.minimizer = [`...`, new CssMinimizerPlugin()];
+		optimizationConfig.minimizer = [
+			`...`,
+			new CssMinimizerPlugin(),
+
+			new ImageMinimizerPlugin({
+				minimizer: {
+					implementation: ImageMinimizerPlugin.imageminMinify,
+					options: {
+						plugins: [
+							["imagemin-gifsicle", { interlaced: true }],
+							["imagemin-mozjpeg", { progressive: true }],
+							["imagemin-pngquant", { optimizationLevel: 5 }],
+
+						]
+					}
+				}
+			})
+		];
 	}
 
 	return optimizationConfig;
@@ -59,9 +81,9 @@ module.exports = {
 	},
 
 	output: {
-		filename: getFileName("js"),
+		filename: './js/' + getFileName("js"),
 		path: DIST,
-		assetModuleFilename: "[path][name].[ext]"
+		assetModuleFilename: "[path][name][ext]"
 	},
 
 	devServer: {
@@ -81,7 +103,7 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({
-			filename: getFileName("css")
+			filename: './css/' + getFileName("css")
 		}),
 		new ESLintPlugin({
 			extensions: ["js", "ts"]
@@ -97,12 +119,10 @@ module.exports = {
 
 			{
 				test: /\.pug$/,
-				use: {
-					loader: "pug-loader",
-					options: {
-						root: SRC
-					}
-				}
+				use: [
+					{ loader: "html-loader"},
+					{ loader: "pug-html-loader", options: {exports: false} },
+				]
 			},
 
 			{
@@ -143,5 +163,6 @@ module.exports = {
 				type: "asset/resource"
 			},
 		]
-	}
+	},
+
 };
