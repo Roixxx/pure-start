@@ -1,3 +1,4 @@
+/* eslint-disable */
 // project styles
 import '@/scss/styles';
 
