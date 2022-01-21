@@ -14,7 +14,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 ///
 
 const IS_DEV = process.env.NODE_ENV === "development";
@@ -55,7 +55,6 @@ const getOptimization = () => {
 							["imagemin-gifsicle", { interlaced: true }],
 							["imagemin-mozjpeg", { progressive: true }],
 							["imagemin-pngquant", { optimizationLevel: 5 }],
-
 						]
 					}
 				}
@@ -101,6 +100,9 @@ module.exports = {
 
 	optimization: getOptimization(),
 	plugins: [
+		new SpriteLoaderPlugin({
+			plainSprite: true
+		}),
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({
 			filename: './css/' + getFileName("css")
@@ -159,9 +161,20 @@ module.exports = {
 			},
 
 			{
-				test: /\.(png|jpe?g|gif|svg|woff2?|ttf|eot|otf)$/,
+				test: /\.(png|jpe?g|gif|woff2?|ttf|eot|otf)$/,
 				type: "asset/resource"
 			},
+
+			{
+				test: /\.svg$/,
+				loader: 'svg-sprite-loader',
+				options: {
+					extract: true,
+					spriteFilename: './assets/img/svg/sprite.svg',
+					runtimeCompat: true
+				}
+			},
+
 		]
 	},
 

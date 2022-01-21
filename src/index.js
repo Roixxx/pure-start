@@ -4,8 +4,14 @@ import '@/scss/styles';
 // UI components scripts
 import '@/components/_ui/popup/popup';
 
-console.log('ban');
-console.log('ban');
-import Icon from './assets/img/content/600.jpg';
+function requireAll(r) {
+	r.keys().forEach(r);
+}
 
-console.log(Icon);
+requireAll(require.context('./assets/img/svg/', true, /\.svg$/));
+
+fetch('./assets/img/svg/sprite.svg')
+	.then((res) => res.text())
+	.then((data) => {
+		document.body.insertAdjacentHTML('beforeend', data);
+	});
