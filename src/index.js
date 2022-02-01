@@ -1,7 +1,3 @@
-import test from '@/scripts/test';
-
-console.log(test);
-
 /* eslint-disable */
 // project styles
 import '@/scss/styles';
@@ -19,3 +15,6 @@ fetch('./assets/img/svg/sprite.svg')
 		document.body.insertAdjacentHTML('beforeend', data);
 	});
 
+import test from '@/scripts/test';
+
+console.log(test);
