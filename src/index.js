@@ -2,8 +2,6 @@
 // project styles
 import '@/scss/styles';
 
-// UI components scripts
-import '@/components/_ui/popup/popup';
 
 function requireAll(r) {
 	r.keys().forEach(r);
