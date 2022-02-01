@@ -15,9 +15,6 @@ module.exports = {
 		"airbnb-typescript/base",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
-		// "prettier",
-		// "plugin:prettier/recommended",
-		// "airbnb",
 		"airbnb-base",
 	],
 	plugins: [

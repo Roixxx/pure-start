@@ -3,3 +3,4 @@ dist/
 
 /create-component.js
 /webpack.config.js
+.eslintrc.js
