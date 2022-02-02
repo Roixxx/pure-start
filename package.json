@@ -1,7 +1,5 @@
 {
-	"name": "pure-start",
-	"version": "2.0.0",
-	"description": "Start your project with 'Pure Start' easily then ever!",
+	"name": "webpack-5",
 	"private": "true",
 	"scripts": {
 		"start": "cross-env NODE_ENV=development npx webpack serve --hot --mode development",
@@ -9,21 +7,9 @@
 		"stats": "npx webpack --profile --json=stats.json",
 		"analyze": "npx webpack-bundle-analyzer stats.json",
 		"comp": "node ./create-component.js",
-		"prettier:check": "prettier --check \"src/**/*.{js,ts}\"",
-		"prettier:fix": "prettier --write \"src/**/*.{js,ts}\"",
 		"eslint:check": "npx eslint . --ext .js,.ts",
 		"eslint:fix": "npx eslint --fix \"./**\""
 	},
-	"keywords": [
-		"javascript",
-		"webpack",
-		"boilerplate",
-		"pure",
-		"start"
-	],
-	"repository": "https://github.com/nmihalyov/pure-start",
-	"author": "Nikita Mihalyov <nikita.mihalyov@gmail.com>",
-	"license": "MIT",
 	"browserslist": "> 0.25%, not dead",
 	"devDependencies": {
 		"@babel/core": "^7.15.0",
